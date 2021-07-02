@@ -3,6 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
 
+class CustomUser(AbstractUser):
+    nickname = models.CharField(
+        verbose_name='사용자 닉네임', max_length=100, unique=True)
+
+
 class Study(models.Model):
     STUDY_CHOICES = (
         ('TOEIC', 'TOEIC'),
@@ -26,6 +31,10 @@ class Study(models.Model):
         choices=STUDY_PLACE_CHOICES, max_length=50, default='online')
     study_time = models.TextField(verbose_name='스터디 시간')
     study_detail = models.TextField(verbose_name='스터디 설명')
+    study_applicants = models.ManyToManyField(CustomUser, related_name='study_applicants',
+                                              verbose_name='스터디 지원자', blank=True)
+    study_members = models.ManyToManyField(CustomUser, related_name='study_members',
+                                           verbose_name='스터디 멤버', blank=True)
 
     def __str__(self):
         return self.study_name
@@ -68,11 +77,6 @@ class Validation(models.Model):
         verbose_name='HSK 수준', max_length=100, blank=True, null=True)
     hsk_validation = models.ImageField(
         upload_to='validations', blank=True, null=True)
-
-
-class CustomUser(AbstractUser):
-    nickname = models.CharField(
-        verbose_name='사용자 닉네임', max_length=100, unique=True)
 
 
 class Profile(models.Model):

@@ -13,4 +13,8 @@ urlpatterns = [
     path('logout', logout, name='logout'),
     path('mypage', mypage, name='mypage'),
     path('study/create', create_study, name='create_study'),
+    path('study/apply/<int:pk>', apply, name='apply'),
+    path('study/accept/<int:study_pk>/<int:user_pk>', accept, name='accept'),
+    path('study/applicants/<int:pk>', applicants, name='applicants'),
+    path('study/<int:pk>', study_detail, name='study_detail'),
 ]

@@ -89,9 +89,6 @@ def mypage(request):
                  profile.validations.toeic_speaking, profile.validations.toeic_speaking_class, profile.validations.toeic_speaking_validation,
                  profile.validations.jlpt, profile.validations.jlpt_class, profile.validations.jlpt_validation,
                  profile.validations.hsk, profile.validations.hsk_class, profile.validations.hsk_validation, ]
-    print('---------------------------')
-    for i in test_list:
-        print(i)
     if request.method == 'GET':
         ctx = {
             'profile': profile,
@@ -159,3 +156,47 @@ def create_study(request):
             'studies': studies
         }
         return redirect('/')
+
+
+def study_detail(request, pk):
+    study = Study.objects.get(id=pk)
+    profile = Profile.objects.get(user=request.user)
+    my_studies = profile.studies.all()
+    ctx = {
+        'study': study,
+        'profile': profile,
+        'my_studies': my_studies,
+    }
+    return render(request, 'study_detail.html', ctx)
+
+
+def apply(request, pk):
+    study = Study.objects.get(id=pk)
+    study.study_applicants.add(request.user)
+    study.save()
+    return redirect('/')
+
+
+def applicants(request, pk):
+    study = Study.objects.get(id=pk)
+    applicants = study.study_applicants.all()
+    ctx = {
+        'study': study,
+        'applicants': applicants
+    }
+    return render(request, 'applicants.html', ctx)
+
+
+def accept(request, study_pk, user_pk):
+    study = Study.objects.get(id=study_pk)
+    user = CustomUser.objects.get(id=user_pk)
+    study.study_members.add(user)
+    study.study_applicants.remove(user)
+    study.save()
+
+    applicants = study.study_applicants.all()
+    ctx = {
+        'study': study,
+        'applicants': applicants
+    }
+    return render(request, 'applicants.html', ctx)

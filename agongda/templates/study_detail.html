@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>스터디 이름 : {{study.study_name}}</p>
+        <p>스터디 과목 : {{study.study_subject}}</p>
+        <p>스터디 제한점수 : {{study.study_limit}}</p>
+        {% if study not in my_studies %}
+        <a href="{% url 'agongda:apply' study.id %}"><button>스터디 신청하기</button></a>
+        {% endif %}
+        <a href="{% url 'agongda:applicants' study.id %}"><p>스터디 신청자</p></a>
+    </body>
+</html>

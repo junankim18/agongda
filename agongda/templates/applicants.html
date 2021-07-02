@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        {% for user in applicants %}
+        <div>
+            <p>{{user}}</p>
+            <a href="{% url 'agongda:accept' study.id user.id%}"><button>수락</button></a>
+            <a href=""><button>거절</button></a>
+        </div>
+
+        {% endfor %}
+    </body>
+</html>

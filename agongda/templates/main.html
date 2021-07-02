@@ -9,9 +9,11 @@
     <body>
         <p>welcome {{request.user}}</p>
         <div>
-            <p>study list</p>
+            <p>내 스터디</p>
             {% for study in studies %}
-            <div>{{study.study_name}}</div>
+            <div>
+                <a href="{% url 'agongda:study_detail' study.id%}">{{study.study_name}}</a>
+            </div>
             {% endfor %}
         </div>
         <div>
