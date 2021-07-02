@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        create_study
+        <form action="{% url 'agongda:create_study' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="study_name">스터디 이름</label>
+            <input type="text" name="study_name" />
+            <br />
+            <p>스터디 과목</p>
+            <label><input type="radio" name="test" value="opic" /> OPIC</label>
+            <label><input type="radio" name="test" value="toeic" /> TOEIC</label>
+            <label><input type="radio" name="test" value="toefl" /> TOEFL</label>
+            <label><input type="radio" name="test" value="toeic_speaking" /> TOEIC SPEAKING</label>
+            <label><input type="radio" name="test" value="jlpt" /> JLPT</label>
+            <label><input type="radio" name="test" value="hsk" /> HSK</label>
+            <br />
+            <br />
+            <label for="study_limit">스터디 점수</label>
+            <input type="text" name="study_limit" />
+            <br />
+            <br />
+            <label for="study_people">스터디 인원</label>
+            <input type="text" name="study_people" />
+            <br />
+            <br />
+            <p>스터디 장소</p>
+            <label><input type="radio" name="place" value="online" /> online</label>
+            <label><input type="radio" name="place" value="offline" /> offline</label>
+            <br />
+            <br />
+            <label for="study_time">스터디 시간</label>
+            <input type="text" name="study_time" />
+            <br />
+            <br />
+            <label for="study_detail">스터디 설명</label>
+            <input type="text" name="study_detail" />
+            <br />
+            <br />
+            <button type="submit">SUBMIT</button>
+        </form>
+    </body>
+</html>

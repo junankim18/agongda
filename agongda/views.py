@@ -124,3 +124,31 @@ def mypage(request):
         }
 
         return render(request, 'mypage.html', ctx)
+
+
+def create_study(request):
+    if request.method == 'GET':
+        ctx = {
+        }
+        return render(request, 'create_study.html', ctx)
+    elif request.method == 'POST':
+        new_study = Study()
+        new_study.study_name = request.POST['study_name']
+        new_study.study_subject = request.POST['test']
+        new_study.study_limit = request.POST['study_limit']
+        new_study.study_people = request.POST['study_people']
+        new_study.study_place = request.POST['place']
+        new_study.study_time = request.POST['study_time']
+        new_study.study_detail = request.POST['study_detail']
+        new_study.save()
+
+        user = request.user
+        profile = Profile.objects.get(user=user)
+        profile.studies.add(new_study)
+        profile.save()
+
+        studies = Study.objects.all()
+        ctx = {
+            'studies': studies
+        }
+        return redirect('/')

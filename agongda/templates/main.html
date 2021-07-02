@@ -7,10 +7,20 @@
         <title>Document</title>
     </head>
     <body>
-        welcome {{request.user}}
-        <a href="{% url 'agongda:signup' %}">회원가입</a>
-        <a href="{% url 'agongda:login' %}">로그인</a>
-        <a href="{% url 'agongda:logout' %}">로그아웃</a>
-        <a href="{% url 'agongda:mypage' %}">마이페이지</a>
+        <p>welcome {{request.user}}</p>
+        <div>
+            <p>study list</p>
+            {% for study in studies %}
+            <div>{{study.study_name}}</div>
+            {% endfor %}
+        </div>
+        <div>
+            <p>options</p>
+            <a href="{% url 'agongda:signup' %}">회원가입</a>
+            <a href="{% url 'agongda:login' %}">로그인</a>
+            <a href="{% url 'agongda:logout' %}">로그아웃</a>
+            <a href="{% url 'agongda:mypage' %}">마이페이지</a>
+            <a href="{% url 'agongda:create_study' %}">스터디 만들기</a>
+        </div>
     </body>
 </html>

@@ -12,4 +12,5 @@ urlpatterns = [
     path('login', login_view, name='login'),
     path('logout', logout, name='logout'),
     path('mypage', mypage, name='mypage'),
+    path('study/create', create_study, name='create_study'),
 ]
