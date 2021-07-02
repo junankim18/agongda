@@ -80,6 +80,8 @@ def logout(request):
 def mypage(request):
     user = request.user
     profile = Profile.objects.get(user=user)
+    studies = profile.studies.all()
+
     validform = ValidationForm()
     test_list = [profile.validations.opic, profile.validations.opic_class, profile.validations.opic_validation,
                  profile.validations.toeic, profile.validations.toeic_class, profile.validations.toeic_validation,
@@ -87,10 +89,15 @@ def mypage(request):
                  profile.validations.toeic_speaking, profile.validations.toeic_speaking_class, profile.validations.toeic_speaking_validation,
                  profile.validations.jlpt, profile.validations.jlpt_class, profile.validations.jlpt_validation,
                  profile.validations.hsk, profile.validations.hsk_class, profile.validations.hsk_validation, ]
+    print('---------------------------')
+    for i in test_list:
+        print(i)
     if request.method == 'GET':
         ctx = {
             'profile': profile,
-            'validform': validform
+            'test_list': test_list,
+            'validform': validform,
+            'studies': studies
         }
         return render(request, 'mypage.html', ctx)
     elif request.method == 'POST':

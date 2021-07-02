@@ -8,15 +8,24 @@
     </head>
     <body>
         <p>{{profile.user}}</p>
-        {% for test in test_list %} {% if test %}
-        <div>{{test}}</div>
-        {% else %} {% endif %} {% endfor %}
+
+        <div>
+            <p>공인시험 인증 내역</p>
+            {% for test in test_list %} {% if test %}
+            <div>{{test}}</div>
+            {% endif %} {% endfor %}
+        </div>
+
         <div>
             <p>OPIC 인증 여부 : {{profile.validations.opic}}</p>
             <p>OPIC 점수 : {{profile.validations.opic_class}}</p>
             <img src="{{profile.validations.opic_validation.url}}" alt="" width="100" />
         </div>
-        <p>{{profile.studies}}</p>
+
+        {% for study in studies %}
+        <p>{{study.study_name}}</p>
+        {% endfor %}
+
         <form action="{% url 'agongda:mypage' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <p>자격시험</p>
