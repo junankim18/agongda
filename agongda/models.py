@@ -71,14 +71,15 @@ class Validation(models.Model):
 
 
 class CustomUser(AbstractUser):
-    nickname = models.CharField(verbose_name='유저 닉네임', max_length=100)
+    nickname = models.CharField(
+        verbose_name='사용자 닉네임', max_length=100, unique=True)
 
 
 class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
-    validations = models.ManyToManyField(
-        Validation, related_name='validations', verbose_name='인증 수준', blank=True)
+    validations = models.ForeignKey(
+        Validation, related_name='validations', verbose_name='인증 수준', on_delete=models.CASCADE, null=True, blank=True)
     studies = models.ManyToManyField(
         Study, related_name='studies', verbose_name='스터디', blank=True)

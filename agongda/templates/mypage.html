@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>{{profile.user}}</p>
+        {% for test in test_list %} {% if test %}
+        <div>{{test}}</div>
+        {% else %} {% endif %} {% endfor %}
+        <div>
+            <p>OPIC 인증 여부 : {{profile.validations.opic}}</p>
+            <p>OPIC 점수 : {{profile.validations.opic_class}}</p>
+            <img src="{{profile.validations.opic_validation.url}}" alt="" width="100" />
+        </div>
+        <p>{{profile.studies}}</p>
+        <form action="{% url 'agongda:mypage' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>자격시험</p>
+            <label><input type="radio" name="test" value="opic" /> OPIC</label>
+            <label><input type="radio" name="test" value="toeic" /> TOEIC</label>
+            <label><input type="radio" name="test" value="toefl" /> TOEFL</label>
+            <label><input type="radio" name="test" value="toeic_speaking" /> TOEIC SPEAKING</label>
+            <label><input type="radio" name="test" value="jlpt" /> JLPT</label>
+            <label><input type="radio" name="test" value="hsk" /> HSK</label>
+            <br />
+            <label for="class">공인 성적</label>
+            <input type="text" name="class" />
+            <br />
+            <label for="image">인증 이미지</label>
+            <input type="file" name="image" />
+            <br />
+            <button type="submit">SUBMIT</button>
+        </form>
+    </body>
+</html>
