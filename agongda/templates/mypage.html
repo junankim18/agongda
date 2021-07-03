@@ -17,32 +17,18 @@
         </div>
 
         <div>
+            <h1>이거 하드코딩을 해서라도 시험별 인덱스 잘 나오게</h1>
+            <h1>아래에 있는 OPIC글자를 장고 변수로 할당하기</h1>
+
             <p>OPIC 인증 여부 : {{profile.validations.opic}}</p>
             <p>OPIC 점수 : {{profile.validations.opic_class}}</p>
-            <img src="{{profile.validations.opic_validation.url}}" alt="" width="100" />
         </div>
 
+        <p>내 스터디</p>
         {% for study in studies %}
         <p>{{study.study_name}}</p>
         {% endfor %}
 
-        <form action="{% url 'agongda:mypage' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <p>자격시험</p>
-            <label><input type="radio" name="test" value="opic" /> OPIC</label>
-            <label><input type="radio" name="test" value="toeic" /> TOEIC</label>
-            <label><input type="radio" name="test" value="toefl" /> TOEFL</label>
-            <label><input type="radio" name="test" value="toeic_speaking" /> TOEIC SPEAKING</label>
-            <label><input type="radio" name="test" value="jlpt" /> JLPT</label>
-            <label><input type="radio" name="test" value="hsk" /> HSK</label>
-            <br />
-            <label for="class">공인 성적</label>
-            <input type="text" name="class" />
-            <br />
-            <label for="image">인증 이미지</label>
-            <input type="file" name="image" />
-            <br />
-            <button type="submit">SUBMIT</button>
-        </form>
+        <button><a href="{% url 'agongda:logout' %}">로그아웃</a></button>
     </body>
 </html>

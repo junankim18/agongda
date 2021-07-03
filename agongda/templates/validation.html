@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수준 인증 페이지</title>
+</head>
+<body style="text-align: center;">
+    <p>스터디 구성과 신청을 위해서는 인증이 필요합니다 인증은 1~2일 소요됩니다.</p>
+    <div>
+        <form action="{% url 'agongda:validation' %}" method="POST" form enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3>스터디 과목</h3>
+            <select name="test">
+                <option>과목 선택</option>
+                <option value="toeic">TOEIC</option>
+                <option value="opic">OPIC</option>
+                <option value="toefl">TOEFL</option>
+                <option value="toeic_speaking">TOEIC Speaking</option>
+                <option value="hsk">HSK</option>
+                <option value="jlpt">JLPT</option>
+            </select><br>
+            <h3><label for="class">스터디 수준</label></h3>
+            <input type="text" name="class" />
+            <br />
+            <h3><label for="image">수준 인증 인증 이미지 업로드</label></h3>
+            <input type="file" name="image" />
+            <br /><br>
+            <button type="submit"><h4>완료 및 제출</h4></button>
+        </form>
+    </div>
+    <br>
+    <a href="{% url 'agongda:main'%}"><h6>다음에 인증하기</h6></a>
+
+</html>

@@ -1,28 +1,137 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>AGONGDA</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
     </head>
+    <style>
+        /* 로고 Dancing Script */
+        @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+        /* 일반영어 Markazi Text */
+        @import url("https://fonts.googleapis.com/css2?family=Markazi+Text&display=swap");
+        /* 한글 Noto Sans KR */
+        @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+        button {
+            font-family: Markazi Text;
+            font-size: 20px;
+            align-items: center;
+            padding: 7px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 20px;
+            margin: 8px;
+            border: 0px;
+        }
+        body {
+            font-family: Markazi Text, Noto Sans KR;
+            background-color: cornsilk;
+        }
+    </style>
+    <ul class="nav nav-fill" style="background-color: rgb(253, 177, 105)">
+        <li class="nav-item">
+            <a
+                class="nav-link disabled"
+                href=""
+                style="font-family: Markazi Text; font-size: 30px; color: rgb(36, 36, 36)"
+                >HOME</a
+            >
+        </li>
+        <li class="nav-item">
+            <p style="font-family: Dancing Script; font-size: 50px; margin-right: 300px; margin-left: 300px">Agongda</p>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item" style="display: flex; flex-direction: row">
+            <a
+                class="nav-link disabled"
+                href="{% url 'agongda:mypage' %}"
+                style="font-family: Markazi Text; font-size: 30px; color: rgb(36, 36, 36)"
+                >Mypage</a
+            >
+            <a
+                class="nav-link disabled"
+                href="{% url 'agongda:mypage' %}"
+                style="font-family: Markazi Text; font-size: 30px; color: rgb(36, 36, 36)"
+                >Verify</a
+            >
+        </li>
+        {% else %}
+        <li class="nav-item" style="display: flex; flex-direction: row">
+            <a
+                class="nav-link disabled"
+                href="{% url 'agongda:login' %}"
+                style="font-family: Markazi Text; font-size: 30px; color: rgb(36, 36, 36)"
+                >Login</a
+            >
+            <a
+                class="nav-link disabled"
+                href="{% url 'agongda:signup' %}"
+                style="font-family: Markazi Text; font-size: 30px; color: rgb(36, 36, 36)"
+                >Join</a
+            >
+        </li>
+        {%endif%}
+    </ul>
+
+    <button type="button" style="background-color: rgb(255, 231, 152)">TOEIC</button>
+    <button type="button" style="background-color: rgb(255, 226, 130)">HSK</button>
+    <button type="button" style="background-color: rgb(253, 216, 95)">JLPT</button>
+    <button type="button" style="background-color: rgb(253, 198, 95)">TOEFL</button>
+    <button type="button" style="background-color: rgb(255, 185, 56)">OPIC</button>
+    <button type="button" style="background-color: rgb(219, 162, 56)">TOEIC SPEAKING</button>
+    <br />
+    <br />
+    <br />
     <body>
-        <p>welcome {{request.user}}</p>
-        <div>
-            <p>내 스터디</p>
-            {% for study in studies %}
-            <div>
-                <a href="{% url 'agongda:study_detail' study.id%}">{{study.study_name}}</a>
-            </div>
-            {% endfor %}
+        <div
+            style="
+                background-color: white;
+                text-align: center;
+                padding: 25px;
+                width: 45%;
+                height: 150px;
+                font-weight: bold;
+                border-radius: 25px;
+                margin: auto;
+            "
+            onclick="location.href='{% url 'agongda:create_study'%}';"
+        >
+            스터디 만들기
+            <br />
+            <br />
+            <img src="{% static 'plus.jpg' %}" style="width: 50px; padding: 5px; border: none" />
         </div>
-        <div>
-            <p>options</p>
-            <a href="{% url 'agongda:signup' %}">회원가입</a>
-            <a href="{% url 'agongda:login' %}">로그인</a>
-            <a href="{% url 'agongda:logout' %}">로그아웃</a>
-            <a href="{% url 'agongda:mypage' %}">마이페이지</a>
-            <a href="{% url 'agongda:create_study' %}">스터디 만들기</a>
+        <br />
+        <br />
+        {%for study in studies%}
+        <div
+            style="
+                background-color: white;
+                text-align: center;
+                padding: 25px;
+                width: 45%;
+                border-radius: 25px;
+                margin: auto;
+            "
+        >
+            <p style="font-weight: bold">{{study.study_name}}</p>
+            <br />
+            {{study.study_subject}}
+            <br />
+            {{study.study_limit}}
+            <br />
+            {{study.study_place}} {{study.study_time}}
+            <br />
         </div>
+        <br />
+        {% endfor %}
     </body>
 </html>

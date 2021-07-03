@@ -17,4 +17,8 @@ urlpatterns = [
     path('study/accept/<int:study_pk>/<int:user_pk>', accept, name='accept'),
     path('study/applicants/<int:pk>', applicants, name='applicants'),
     path('study/<int:pk>', study_detail, name='study_detail'),
+    path('movetovalidation', movetovalidation, name='movetovalidation'),
+    path('validation_verified', validation_verified, name='validation_verified'),
+    path('validation', validation, name='validation'),
+
 ]

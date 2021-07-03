@@ -35,6 +35,8 @@ class Study(models.Model):
                                               verbose_name='스터디 지원자', blank=True)
     study_members = models.ManyToManyField(CustomUser, related_name='study_members',
                                            verbose_name='스터디 멤버', blank=True)
+    study_leader = models.ForeignKey(
+        CustomUser, related_name='study_leader', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.study_name

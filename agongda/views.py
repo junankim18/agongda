@@ -97,37 +97,6 @@ def mypage(request):
             'studies': studies
         }
         return render(request, 'mypage.html', ctx)
-    elif request.method == 'POST':
-
-        new_validation = profile.validations
-
-        test = request.POST['test']
-        if test == 'opic':
-            new_validation.opic_class = request.POST['class']
-            new_validation.opic_validation = request.FILES['image']
-        elif test == 'toeic':
-            new_validation.toeic_class = request.POST['class']
-            new_validation.toeic_validation = request.FILES['image']
-        elif test == 'toefl':
-            new_validation.toefl_class = request.POST['class']
-            new_validation.toefl_validation = request.FILES['image']
-        elif test == 'toeic_speaking':
-            new_validation.toeic_speaking_class = request.POST['class']
-            new_validation.toeic_speaking_validation = request.FILES['image']
-        elif test == 'jlpt':
-            new_validation.jlpt_speaking_class = request.POST['class']
-            new_validation.jlpt_speaking_validation = request.FILES['image']
-        elif test == 'hsk':
-            new_validation.hsk_speaking_class = request.POST['class']
-            new_validation.hsk_speaking_validation = request.FILES['image']
-        new_validation.save()
-
-        ctx = {
-            'profile': profile,
-            'test_list': test_list
-        }
-
-        return render(request, 'mypage.html', ctx)
 
 
 def create_study(request):
@@ -144,6 +113,7 @@ def create_study(request):
         new_study.study_place = request.POST['place']
         new_study.study_time = request.POST['study_time']
         new_study.study_detail = request.POST['study_detail']
+        new_study.study_leader = request.user
         new_study.save()
 
         user = request.user
@@ -200,3 +170,41 @@ def accept(request, study_pk, user_pk):
         'applicants': applicants
     }
     return render(request, 'applicants.html', ctx)
+
+
+def validation_verified(request):
+    return render(request, 'validation_verified.html')
+
+
+def validation(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    new_validation = profile.validations
+    test = request.POST['test']
+    image = request.FILES['image']
+
+    if image:
+        if test == 'opic':
+            new_validation.opic_class = request.POST['class']
+            new_validation.opic_validation = request.FILES['image']
+        elif test == 'toeic':
+            new_validation.toeic_class = request.POST['class']
+            new_validation.toeic_validation = request.FILES['image']
+        elif test == 'toefl':
+            new_validation.toefl_class = request.POST['class']
+            new_validation.toefl_validation = request.FILES['image']
+        elif test == 'toeic_speaking':
+            new_validation.toeic_speaking_class = request.POST['class']
+            new_validation.toeic_speaking_validation = request.FILES['image']
+        elif test == 'jlpt':
+            new_validation.jlpt_speaking_class = request.POST['class']
+            new_validation.jlpt_speaking_validation = request.FILES['image']
+        elif test == 'hsk':
+            new_validation.hsk_speaking_class = request.POST['class']
+            new_validation.hsk_speaking_validation = request.FILES['image']
+        new_validation.save()
+        return render(request, 'validation_verified.html')
+
+
+def movetovalidation(request):
+    return render(request, 'validation.html')
